@@ -23,7 +23,7 @@ function Erramos() {
             const lon = position.coords.longitude
             const geocodeFormated = `?lat=${lat}&lon=${lon}`;
 
-            const { Mensage } = await (await fetch(API + geocodeFormated)).json()
+            let { Mensage } = await (await fetch(API + geocodeFormated)).json()
             Mensage = JSON.parse(Mensage)
             const city = Mensage.result[0].locations.adminArea5;
             if (city) {
