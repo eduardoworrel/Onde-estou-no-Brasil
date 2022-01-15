@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Puff } from 'react-loading-icons'
 
-const API_IP = "http://localhost:5001/getByIP"
+const API_IP = "https://where-api.eduardoworrel.com/getByIP"
 const API_MALHAS = "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/"
 const API_MUNICIPIOS = "https://servicodados.ibge.gov.br/api/v1/localidades/municipios"
 function Where() {
