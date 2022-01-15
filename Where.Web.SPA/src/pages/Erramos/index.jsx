@@ -25,7 +25,7 @@ function Erramos() {
 
             let { Mensage } = await (await fetch(API + geocodeFormated)).json()
 
-            Mensage = JSON.parse(Mensage.replace("\\",""))
+            Mensage = JSON.parse(Mensage)
 
             const city = Mensage.results[0].locations.adminArea5;
             if (city) {
