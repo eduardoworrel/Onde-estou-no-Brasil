@@ -27,7 +27,7 @@ function Erramos() {
 
             Mensage = JSON.parse(Mensage)
 
-            const city = Mensage.results[0].locations.adminArea5;
+            const city = Mensage.results[0].locations[0].adminArea5;
             if (city) {
                 try {
                     const all = await (await fetch(API_MUNICIPIOS)).json()
