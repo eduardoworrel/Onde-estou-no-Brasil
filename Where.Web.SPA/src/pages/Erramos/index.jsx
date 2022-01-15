@@ -37,9 +37,11 @@ function Erramos() {
                         const doc = URL.createObjectURL(svg)
                         setMyCity(city)
                         setImage(doc)
+                        setIsLoading(false);
                     }
                 } catch (e) {
                     //erramos
+                    setIsLoading(false);
                 }
             }
 
@@ -78,26 +80,34 @@ function Erramos() {
                     :
                     <>
                         <Button
-                            onClick={handle} color="green" m="sm">
+                            onClick={handle} color="pinkPurple" m="sm">
                             Geolocalização
                         </Button>
+                        <Link to={`/`}>
+                            <Button color="blackLight" m="sm">
+                                Voltar
+                            </Button>
+                        </Link>
                     </>
             }
             {
                 naoPermitido ?
-                    <Box>
-                        <Heading>Localização não disponibilizada ;/</Heading>
-                    </Box>
+                    <>
+                        <Box>
+                            <Heading>Localização não disponibilizada ;/</Heading>
+                        </Box>
+                        <Box>
+                            <Link to={`/`}>
+                                <Button color="blackLight" m="sm">
+                                    Voltar
+                                </Button> 
+                            </Link>
+                        </Box>
+                    </>
                     :
                     <></>
             }
-            <Box>
-                <Link to={`/`}>
-                    <Button color="blackLight" m="sm">
-                        Voltar
-                    </Button>
-                </Link>
-            </Box>
+
         </div>
     );
 }
