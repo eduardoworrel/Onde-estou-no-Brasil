@@ -4,4 +4,4 @@ services:
     ports: 
       - 80:8081
     environment: 
-      - MAP_TOKEN=
+      - MAP_TOKEN=8z0QEtMHbP37KXD0tDsUXvrsJ4N8idyE
