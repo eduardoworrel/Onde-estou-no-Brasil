@@ -24,11 +24,10 @@ function Erramos() {
             const geocodeFormated = `?lat=${lat}&lon=${lon}`;
 
             let { Mensage } = await (await fetch(API + geocodeFormated)).json()
-            let Mensage2 = JSON.parse(Mensage)
+
             Mensage = JSON.parse(Mensage.replace("\\",""))
-            console.log(Mensage)
-            console.log(Mensage2)
-            const city = Mensage.result[0].locations.adminArea5;
+
+            const city = Mensage.results[0].locations.adminArea5;
             if (city) {
                 try {
                     const all = await (await fetch(API_MUNICIPIOS)).json()
