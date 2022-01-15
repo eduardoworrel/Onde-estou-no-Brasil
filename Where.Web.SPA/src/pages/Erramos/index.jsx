@@ -29,16 +29,20 @@ function Erramos() {
                 const lon = position.coords.longitude
                 const geocodeFormated = `${lat}, ${lon}`;
 
-                const {Mensage} = await (await fetch(API + geocodeFormated)).json()
+                const { Mensage } = await (await fetch(API + geocodeFormated)).json()
                 const city = Mensage.result[0].locations.adminArea5;
                 if (city) {
-                    const all = await (await fetch(API_MUNICIPIOS)).json()
-                    const [metadados] = all.filter((e) => e.nome === city);
-                    if (metadados.id > 0) {
-                        const svg = await (await fetch(API_MALHAS + metadados.id + "?preenchimento=E0E0E0")).blob()
-                        const doc = URL.createObjectURL(svg)
-                        setMyCity(city)
-                        setImage(doc)
+                    try {
+                        const all = await (await fetch(API_MUNICIPIOS)).json()
+                        const [metadados] = all.filter((e) => e.nome === city);
+                        if (metadados.id > 0) {
+                            const svg = await (await fetch(API_MALHAS + metadados.id + "?preenchimento=E0E0E0")).blob()
+                            const doc = URL.createObjectURL(svg)
+                            setMyCity(city)
+                            setImage(doc)
+                        }
+                    } catch (e) {
+                       //erramos
                     }
                 }
 
