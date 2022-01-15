@@ -14,43 +14,41 @@ function Erramos() {
     const [myCity, setMyCity] = useState(false)
     const [image, setImage] = useState("")
 
-    useEffect(() => {
 
-        async function handle() {
-            navigator.geolocation.getCurrentPosition(async (position, erros) => {
+    async function handle() {
+        navigator.geolocation.getCurrentPosition(async (position) => {
 
+            const lat = position.coords.latitude
+
+            const lon = position.coords.longitude
+            const geocodeFormated = `${lat}, ${lon}`;
+
+            const { Mensage } = await (await fetch(API + geocodeFormated)).json()
+            const city = Mensage.result[0].locations.adminArea5;
+            if (city) {
+                try {
+                    const all = await (await fetch(API_MUNICIPIOS)).json()
+                    const [metadados] = all.filter((e) => e.nome === city);
+                    if (metadados.id > 0) {
+                        const svg = await (await fetch(API_MALHAS + metadados.id + "?preenchimento=E0E0E0")).blob()
+                        const doc = URL.createObjectURL(svg)
+                        setMyCity(city)
+                        setImage(doc)
+                    }
+                } catch (e) {
+                    //erramos
+                }
+            }
+
+        },
+            (erros) => {
                 if (erros) {
                     setIsLoading(false);
                     setNaoPermitido(true);
                 }
-
-                const lat = position.coords.latitude
-
-                const lon = position.coords.longitude
-                const geocodeFormated = `${lat}, ${lon}`;
-
-                const { Mensage } = await (await fetch(API + geocodeFormated)).json()
-                const city = Mensage.result[0].locations.adminArea5;
-                if (city) {
-                    try {
-                        const all = await (await fetch(API_MUNICIPIOS)).json()
-                        const [metadados] = all.filter((e) => e.nome === city);
-                        if (metadados.id > 0) {
-                            const svg = await (await fetch(API_MALHAS + metadados.id + "?preenchimento=E0E0E0")).blob()
-                            const doc = URL.createObjectURL(svg)
-                            setMyCity(city)
-                            setImage(doc)
-                        }
-                    } catch (e) {
-                       //erramos
-                    }
-                }
-
             });
+    }
 
-        }
-        handle();
-    }, []);
 
     return (
         <div className='container-app'>
@@ -75,13 +73,17 @@ function Erramos() {
                         </Link>
                     </Box>
                     :
-                    <></>
+                    <>
+                        <Button
+                            onClick={handle} color="green" m="sm">
+                            Geolocalização
+                        </Button>
+                    </>
             }
             {
                 naoPermitido ?
                     <Box>
                         <Heading>Localização não disponibilizada ;/</Heading>
-
                     </Box>
                     :
                     <></>
