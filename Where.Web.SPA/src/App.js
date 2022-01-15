@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
+import '@dracula/dracula-ui/styles/dracula-ui.css'
 
 import Home from './pages/Home';
 import Where from './pages/Where';
