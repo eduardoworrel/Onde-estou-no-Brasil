@@ -12,12 +12,12 @@ function getRandomInt(min, max) {
 }
 function Surpreenda() {
     const [image, setImage] = useState("")
-    const [allCities, setAllCities] = useState([])
     const [myCity, setMyCity] = useState("")
-    
-    async function handle() {
 
-        const metadados = allCities[getRandomInt(0, allCities.length)];
+    async function handle() {
+        const all = await (await fetch(API_MUNICIPIOS)).json()
+        
+        const metadados = all[getRandomInt(0, all.length)];
         if (metadados.id > 0) {
             const svg = await (await fetch(API_MALHAS + metadados.id + "?preenchimento=E0E0E0")).blob()
             const doc = URL.createObjectURL(svg)
@@ -28,12 +28,8 @@ function Surpreenda() {
     }
 
     useEffect(() => {
-        async function preload(){
-            const all = await (await fetch(API_MUNICIPIOS)).json()
-            setAllCities(all);
-            handle();
-        }
-        preload();
+
+        handle();
     }, []);
 
     return (
@@ -52,11 +48,11 @@ function Surpreenda() {
                                     Voltar
                             </Button>
                             </Link>
-                               <Button color="yellowPink" m="sm"
-                               onClick={handle}>
-                                    De novo
+                            <Button color="yellowPink" m="sm"
+                                onClick={handle}>
+                                De novo
                             </Button>
-                           
+
                         </Box>
 
                     </Box>
