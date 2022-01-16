@@ -9,8 +9,15 @@ body {
   background-color: #1d1e26;
 }
 .container-app{
-  margin-top: 40px;
+  margin: 40px auto;
   text-align: center;
+  width: 40%;
+}
+@media (max-width: 600px)
+{
+  .container-app{
+    width: 80%;
+  }
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

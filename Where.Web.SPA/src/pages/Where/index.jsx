@@ -41,7 +41,7 @@ function Where() {
                 {myCity ?
                     <Box>
                         <Heading>{myCity}</Heading>
-                        <div style={{ margin: "0 auto", width: "30%" }}>
+                        <div style={{ margin: "20px auto"}}>
                             <img alt="Me" width="100%" src={image} />
                         </div>
                         <Link to={`/`}>

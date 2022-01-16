@@ -22,11 +22,11 @@ function Home() {
             <Heading>Onde eu estou no brasil?</Heading>
             {image ?
                 <Box>
-                    <div style={{ margin: "0 auto", width: "30%" }}>
+                    <div style={{ margin: "20px auto"}}>
                         <img width="100%" src={image} />
                     </div>
                     <Link to={`/where/`}>
-                        <Button color="cyanGreen" m="sm">
+                        <Button color="pinkPurple" m="sm">
                             Iniciar
                     </Button>
                     </Link>

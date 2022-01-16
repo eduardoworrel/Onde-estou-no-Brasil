@@ -68,7 +68,7 @@ function Erramos() {
                 myCity ?
                     <Box>
                         <Heading>{myCity}</Heading>
-                        <div style={{ margin: "0 auto", width: "30%" }}>
+                        <div style={{ margin: "20px auto"}}>
                             <img alt="Me" width="100%" src={image} />
                         </div>
                         <Link to={`/`}>
@@ -81,8 +81,9 @@ function Erramos() {
                     <>
                         <Button
                             onClick={handle} color="pinkPurple" m="sm">
-                            Geolocalização
+                            Ativar localização
                         </Button>
+                        <br/>
                         <Link to={`/`}>
                             <Button color="blackLight" m="sm">
                                 Voltar
@@ -95,13 +96,6 @@ function Erramos() {
                     <>
                         <Box>
                             <Heading>Localização não disponibilizada ;/</Heading>
-                        </Box>
-                        <Box>
-                            <Link to={`/`}>
-                                <Button color="blackLight" m="sm">
-                                    Voltar
-                                </Button> 
-                            </Link>
                         </Box>
                     </>
                     :
