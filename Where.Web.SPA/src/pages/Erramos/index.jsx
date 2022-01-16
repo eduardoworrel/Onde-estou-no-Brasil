@@ -87,7 +87,7 @@ function Erramos() {
             }
             <Box style={{ position: "fixed", bottom: "10px", left: "0", width: "100%" }}>
                 <Link to={`/`}>
-                    <Button color="blackSecondary" m="sm">
+                    <Button color="white" m="sm">
                         Voltar
                     </Button>
                 </Link>

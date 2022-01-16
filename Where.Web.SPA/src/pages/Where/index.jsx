@@ -46,7 +46,7 @@ function Where() {
                         </div>
                         <Box style={{ position: "fixed", bottom: "10px", left: "0", width: "100%" }}>
                             <Link to={`/`}>
-                                <Button color="blackLight" m="sm">
+                            <Button color="white" m="sm">
                                     Voltar
                             </Button>
                             </Link>
