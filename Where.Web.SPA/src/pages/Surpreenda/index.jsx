@@ -1,44 +1,46 @@
 import { Box, Button, Heading } from '@dracula/dracula-ui';
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Puff } from 'react-loading-icons'
-const API_IP = "https://where-api.eduardoworrel.com/getByIP"
+
 const API_MALHAS = "https://servicodados.ibge.gov.br/api/v3/malhas/municipios/"
 const API_MUNICIPIOS = "https://servicodados.ibge.gov.br/api/v1/localidades/municipios"
-
-function Where() {
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+function Surpreenda() {
     const [image, setImage] = useState("")
+    const [allCities, setAllCities] = useState([])
     const [myCity, setMyCity] = useState("")
+    
+    async function handle() {
 
-    let navigate = useNavigate();
+        const metadados = allCities[getRandomInt(0, allCities.length)];
+        if (metadados.id > 0) {
+            const svg = await (await fetch(API_MALHAS + metadados.id + "?preenchimento=E0E0E0")).blob()
+            const doc = URL.createObjectURL(svg)
+            console.log(metadados)
+            setMyCity(metadados.nome + " " + metadados.microrregiao.mesorregiao.UF.sigla)
+            setImage(doc)
+        }
+    }
 
     useEffect(() => {
-        async function handle() {
-            const { Mensage } = await (await fetch(API_IP)).json()
-            const city = Mensage;
-            if (city) {
-                try {
-                    const all = await (await fetch(API_MUNICIPIOS)).json()
-                    const [metadados] = all.filter((e) => e.nome === city);
-                    if (metadados.id > 0) {
-                        const svg = await (await fetch(API_MALHAS + metadados.id + "?preenchimento=E0E0E0")).blob()
-                        const doc = URL.createObjectURL(svg)
-                        setMyCity(city)
-                        setImage(doc)
-                    }
-                } catch (e) {
-                    navigate("/erramos", { replace: true });
-                }
-            }
+        async function preload(){
+            const all = await (await fetch(API_MUNICIPIOS)).json()
+            setAllCities(all);
+            handle();
         }
-        handle();
+        preload();
     }, []);
 
     return (
         <section>
 
             <div className='container-app'>
-                {myCity ?
+                {image ?
                     <Box>
                         <Heading>{myCity}</Heading>
                         <div style={{ margin: "20px auto" }}>
@@ -50,11 +52,11 @@ function Where() {
                                     Voltar
                             </Button>
                             </Link>
-                            <Link to={`/erramos/`}>
-                                <Button color="yellowPink" m="sm">
-                                    Erramos?
+                               <Button color="yellowPink" m="sm"
+                               onClick={handle}>
+                                    De novo
                             </Button>
-                            </Link>
+                           
                         </Box>
 
                     </Box>
@@ -65,4 +67,4 @@ function Where() {
     )
 }
 
-export default Where;
+export default Surpreenda;

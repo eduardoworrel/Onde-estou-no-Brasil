@@ -68,28 +68,12 @@ function Erramos() {
                 myCity ?
                     <Box>
                         <Heading>{myCity}</Heading>
-                        <div style={{ margin: "20px auto"}}>
+                        <div style={{ margin: "20px auto" }}>
                             <img alt="Me" width="100%" src={image} />
                         </div>
-                        <Link to={`/`}>
-                            <Button color="blackLight" m="sm">
-                                Voltar
-                            </Button>
-                        </Link>
                     </Box>
                     :
-                    <>
-                        <Button
-                            onClick={handle} color="pinkPurple" m="sm">
-                            Ativar localização
-                        </Button>
-                        <br/>
-                        <Link to={`/`}>
-                            <Button color="blackLight" m="sm">
-                                Voltar
-                            </Button>
-                        </Link>
-                    </>
+                    <></>
             }
             {
                 naoPermitido ?
@@ -101,7 +85,22 @@ function Erramos() {
                     :
                     <></>
             }
+            <Box style={{ position: "fixed", bottom: "10px", left: "0", width: "100%" }}>
+                <Link to={`/`}>
+                    <Button color="blackSecondary" m="sm">
+                        Voltar
+                    </Button>
+                </Link>
+                {!myCity ?
+                    <Button
+                        onClick={handle} color="pinkPurple" m="sm">
+                        Ativar localização
+                    </Button>
+                    :
+                    <></>
+                }
 
+            </Box>
         </div>
     );
 }

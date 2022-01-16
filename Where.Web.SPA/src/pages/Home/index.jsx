@@ -22,17 +22,25 @@ function Home() {
             <Heading>Onde eu estou no brasil?</Heading>
             {image ?
                 <Box>
-                    <div style={{ margin: "20px auto"}}>
+                    <div style={{ margin: "20px auto" }}>
                         <img width="100%" src={image} />
                     </div>
-                    <Link to={`/where/`}>
-                        <Button color="pinkPurple" m="sm">
-                            Iniciar
-                    </Button>
-                    </Link>
+
                 </Box>
-                    : <><Puff stroke="pink" strokeOpacity={.925} speed={.75} /></>
-                }
+                : <><Puff stroke="pink" strokeOpacity={.925} speed={.75} /></>
+            }
+            <Box style={{position:"fixed", bottom:"10px", left:"0", width:"100%"}}>
+                <Link to={`/surpreenda`}>
+                    <Button color="yellowPink" m="sm">
+                        Me surpreenda
+                    </Button>
+                </Link>
+                <Link to={`/where/`}>
+                    <Button color="pinkPurple" m="sm">
+                        Iniciar
+                    </Button>
+                </Link>
+            </Box>
         </div>
     )
 }
