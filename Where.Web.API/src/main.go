@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"net"
 
 	"github.com/ipinfo/go/v2/ipinfo"
 	"github.com/labstack/echo/v4"
@@ -31,8 +32,8 @@ func tryGetCityByGeocode(lat string, lon string) Mensage {
 	}
 }
 
-func tryGetCity() Mensage {
-	city, err := ipinfo.GetIPCity(nil)
+func tryGetCity(c echo.Context) Mensage {
+	city, err := ipinfo.GetIPCity(net.ParseIP(c.Request().RemoteAddr))
 	if err != nil {
 		return Mensage{
 			Status:  0,
@@ -58,7 +59,7 @@ func main() {
 
 	e.GET("/getByIP", func(c echo.Context) error {
 
-		return c.JSON(http.StatusOK, tryGetCity())
+		return c.JSON(http.StatusOK, tryGetCity(c))
 	})
 
 	e.GET("/getByGeocode", func(c echo.Context) error {
