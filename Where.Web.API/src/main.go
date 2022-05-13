@@ -40,7 +40,6 @@ func tryGetCity(c echo.Context) Mensage {
     if IPAddress == "" {
         IPAddress = c.Request().RemoteAddr
     }
-	fmt.Println(IPAddress)
 	city, err := ipinfo.GetIPCity(net.ParseIP(IPAddress))
 	if err != nil {
 		return Mensage{
