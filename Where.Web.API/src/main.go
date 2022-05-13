@@ -33,7 +33,15 @@ func tryGetCityByGeocode(lat string, lon string) Mensage {
 }
 
 func tryGetCity(c echo.Context) Mensage {
-	city, err := ipinfo.GetIPCity(net.ParseIP(c.Request().RemoteAddr))
+	IPAddress := c.Request().Header.Get("X-Real-Ip")
+    if IPAddress == "" {
+        IPAddress = c.Request().Header.Get("X-Forwarded-For")
+    }
+    if IPAddress == "" {
+        IPAddress = c.Request().RemoteAddr
+    }
+	fmt.Println(IPAddress)
+	city, err := ipinfo.GetIPCity(net.ParseIP(IPAddress))
 	if err != nil {
 		return Mensage{
 			Status:  0,
